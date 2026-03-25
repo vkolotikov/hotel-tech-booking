@@ -33,8 +33,11 @@ function detect(): string {
 /** Absolute path prefix for this deployment, e.g. "/hotel-tech/apps/booking/booking-app/backend" */
 export const BASE_PATH = detect();
 
-/** React Router basename — "/" for root, otherwise the detected base path */
-export const ROUTER_BASENAME = BASE_PATH || "/";
+/** React Router basename — empty in production (PHP serves SPA at root). */
+export const ROUTER_BASENAME: string =
+  import.meta.env.VITE_ROUTER_BASE !== undefined
+    ? (import.meta.env.VITE_ROUTER_BASE as string) || "/"
+    : BASE_PATH || "/";
 
 /**
  * API root prefix — empty means API is at /api/v1 (same-domain root).
