@@ -1,0 +1,1875 @@
+.admin-screen {
+  --admin-bg:
+    radial-gradient(circle at 0 0, rgba(217, 143, 69, 0.14), transparent 30%),
+    linear-gradient(180deg, #f6f3ea 0%, #f9f8f4 100%);
+  --admin-surface: rgba(255, 255, 255, 0.92);
+  --admin-surface-strong: #ffffff;
+  --admin-surface-soft: #f2f5f1;
+  --admin-surface-muted: #f8faf7;
+  --admin-surface-elevated: rgba(255, 255, 255, 0.78);
+  --admin-sidebar-bg:
+    radial-gradient(circle at 10% 0, rgba(217, 143, 69, 0.18), transparent 25%),
+    linear-gradient(180deg, #0d2019 0%, #123125 58%, #163628 100%);
+  --admin-sidebar-text: rgba(255, 255, 255, 0.84);
+  --admin-sidebar-muted: rgba(255, 255, 255, 0.68);
+  --admin-border: rgba(22, 54, 40, 0.1);
+  --admin-border-soft: rgba(22, 54, 40, 0.08);
+  --admin-border-strong: rgba(22, 54, 40, 0.16);
+  --admin-shadow: 0 16px 30px rgba(16, 39, 31, 0.06);
+  --admin-shadow-strong: 0 24px 60px rgba(16, 39, 31, 0.12);
+  --admin-text: var(--color-forest-950);
+  --admin-text-muted: var(--color-ink-700);
+  --admin-accent: var(--color-forest-700);
+  --admin-accent-soft: rgba(47, 108, 79, 0.1);
+  --admin-accent-glow: rgba(47, 108, 79, 0.16);
+  --admin-warning: rgba(217, 143, 69, 0.18);
+  --admin-danger: rgba(157, 42, 42, 0.1);
+  --admin-chart-track: #e9ede6;
+  --admin-chart-1: #2f6c4f;
+  --admin-chart-2: #d98f45;
+  --admin-chart-3: #4a8180;
+  --admin-chart-4: #7b3d2f;
+  --admin-chart-5: #8e5a1f;
+  --admin-chart-6: #5678a6;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  background: var(--admin-bg);
+  color: var(--admin-text);
+}
+
+.admin-screen[data-theme="dark"] {
+  --admin-bg:
+    radial-gradient(circle at 0 0, rgba(217, 143, 69, 0.14), transparent 24%),
+    linear-gradient(180deg, #08110f 0%, #0d1714 55%, #0f1c18 100%);
+  --admin-surface: rgba(14, 24, 21, 0.94);
+  --admin-surface-strong: #15231e;
+  --admin-surface-soft: #182923;
+  --admin-surface-muted: #13211d;
+  --admin-surface-elevated: rgba(18, 31, 27, 0.86);
+  --admin-sidebar-bg:
+    radial-gradient(circle at 10% 0, rgba(217, 143, 69, 0.14), transparent 22%),
+    linear-gradient(180deg, #07100d 0%, #0c1713 58%, #11211c 100%);
+  --admin-sidebar-text: rgba(245, 248, 245, 0.92);
+  --admin-sidebar-muted: rgba(219, 227, 221, 0.66);
+  --admin-border: rgba(158, 183, 171, 0.14);
+  --admin-border-soft: rgba(158, 183, 171, 0.1);
+  --admin-border-strong: rgba(158, 183, 171, 0.2);
+  --admin-shadow: 0 18px 34px rgba(0, 0, 0, 0.28);
+  --admin-shadow-strong: 0 28px 70px rgba(0, 0, 0, 0.42);
+  --admin-text: #f3f4ef;
+  --admin-text-muted: #aab8b1;
+  --admin-accent: #9ed0a8;
+  --admin-accent-soft: rgba(158, 208, 168, 0.12);
+  --admin-accent-glow: rgba(158, 208, 168, 0.18);
+  --admin-warning: rgba(217, 143, 69, 0.14);
+  --admin-danger: rgba(196, 92, 92, 0.16);
+  --admin-chart-track: #22332d;
+  --admin-chart-1: #74c895;
+  --admin-chart-2: #f0b56f;
+  --admin-chart-3: #5ab4b2;
+  --admin-chart-4: #e4846f;
+  --admin-chart-5: #d5c06a;
+  --admin-chart-6: #81a6e8;
+}
+
+.admin-main {
+  padding: 1.5rem 1.6rem;
+  display: grid;
+  gap: 1.15rem;
+}
+
+.admin-route-shell {
+  display: contents;
+}
+
+.admin-sidebar {
+  padding: 1.4rem 1.1rem;
+  background: var(--admin-sidebar-bg);
+  color: var(--admin-sidebar-text);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 1rem;
+  border-right: 1px solid var(--admin-border-soft);
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  backdrop-filter: blur(18px);
+}
+
+.admin-brand {
+  display: block;
+}
+
+.admin-brand-link {
+  text-decoration: none;
+}
+
+.admin-brand-logo {
+  display: block;
+  width: min(100%, 220px);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+}
+
+.admin-sidebar-footer p {
+  margin: 0.15rem 0 0;
+  color: var(--admin-sidebar-muted);
+}
+
+.admin-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 46px;
+  padding: 0.7rem 0.85rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--admin-sidebar-text);
+  cursor: pointer;
+  transition: transform 160ms ease, background-color 160ms ease, border-color 160ms ease;
+}
+
+.admin-theme-toggle:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.admin-theme-toggle svg {
+  width: 18px;
+  height: 18px;
+}
+
+.admin-theme-toggle.auth {
+  border-color: var(--admin-border);
+  background: var(--admin-surface-soft);
+  color: var(--admin-text);
+}
+
+.admin-nav {
+  display: grid;
+  gap: 0.45rem;
+  align-content: start;
+}
+
+.admin-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.78rem 0.9rem;
+  border-radius: 16px;
+  text-decoration: none;
+  color: var(--admin-sidebar-text);
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease;
+}
+
+.admin-nav-link svg {
+  width: 18px;
+  height: 18px;
+}
+
+.admin-nav-link.active {
+  color: white;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.06));
+  transform: translateX(2px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.admin-sidebar-footer {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.95rem;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-logout {
+  margin-top: 0.5rem;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.admin-auth-screen,
+.admin-loading-screen {
+  grid-template-columns: 1fr;
+  place-items: center;
+  padding: 2rem;
+}
+
+.admin-auth-card,
+.admin-loading-card {
+  width: min(760px, 100%);
+  display: grid;
+  gap: 1.2rem;
+  padding: 1.6rem;
+  border-radius: 28px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow-strong);
+  backdrop-filter: blur(20px);
+}
+
+.admin-auth-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.admin-auth-copy h1,
+.admin-page-header h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 0.95;
+  color: var(--admin-text);
+}
+
+.admin-eyebrow {
+  display: inline-flex;
+  margin-bottom: 0.55rem;
+  padding: 0.22rem 0.55rem;
+  border-radius: 999px;
+  background: var(--admin-accent-soft);
+  color: var(--admin-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.admin-auth-copy p,
+.admin-page-header p {
+  margin: 0.55rem 0 0;
+  color: var(--admin-text-muted);
+  max-width: 48rem;
+}
+
+.admin-auth-form {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.admin-auth-form label {
+  display: grid;
+  gap: 0.4rem;
+  color: var(--admin-text);
+}
+
+.admin-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.admin-calendar-page-header {
+  gap: 0.6rem;
+  margin-bottom: 0.1rem;
+}
+
+.admin-calendar-page-header .admin-eyebrow {
+  margin-bottom: 0.35rem;
+}
+
+.admin-calendar-page-header h1 {
+  font-size: clamp(1.85rem, 3vw, 2.5rem);
+  line-height: 0.94;
+}
+
+.admin-calendar-page-header p {
+  margin-top: 0.35rem;
+  font-size: 0.95rem;
+}
+
+.admin-calendar-header-overview {
+  min-width: min(100%, 980px);
+  display: block;
+  align-items: start;
+  padding: 0.85rem 1rem;
+  border-radius: 22px;
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-calendar-header-summary {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.admin-calendar-header-summary h2 {
+  margin: 0;
+  color: var(--admin-text);
+  font-size: 1.25rem;
+  line-height: 1.05;
+}
+
+.admin-calendar-header-summary p {
+  margin: 0.18rem 0 0;
+  color: var(--admin-text-muted);
+  font-size: 0.92rem;
+}
+
+.admin-inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.admin-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.admin-kpi-card,
+.admin-panel,
+.admin-booking-card,
+.admin-payment-card,
+.admin-calendar-unit,
+.admin-analytics-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 22px;
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-kpi-card {
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-kpi-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--admin-accent), rgba(217, 143, 69, 0.78));
+}
+
+.admin-kpi-card p {
+  margin: 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-kpi-card strong {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: 2rem;
+  color: var(--admin-text);
+}
+
+.admin-kpi-card span {
+  display: block;
+  margin-top: 0.4rem;
+  color: var(--admin-text-muted);
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.admin-grid.two-up,
+.admin-grid.detail-top,
+.admin-grid.detail-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.admin-analytics-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-analytics-grid.primary {
+  grid-template-columns: minmax(320px, 0.95fr) minmax(0, 1.45fr);
+}
+
+.admin-analytics-grid.secondary {
+  grid-template-columns: minmax(0, 1.35fr) minmax(320px, 0.95fr);
+}
+
+.admin-panel,
+.admin-analytics-card {
+  padding: 1rem;
+}
+
+.admin-panel-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.admin-panel-header.compact {
+  margin-bottom: 1rem;
+  align-items: flex-start;
+}
+
+.admin-panel-header h2,
+.admin-panel-header h3 {
+  margin: 0;
+  color: var(--admin-text);
+}
+
+.admin-panel-header p {
+  margin: 0.28rem 0 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-panel-header a,
+.admin-back-link {
+  color: var(--admin-accent);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.admin-list,
+.admin-card-grid {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.admin-section-caption {
+  margin: -0.15rem 0 0;
+  color: var(--admin-text-muted);
+  font-size: 0.92rem;
+}
+
+.admin-list-item,
+.admin-booking-card,
+.admin-payment-card {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.admin-list-item {
+  padding: 0.85rem 0.9rem;
+  border-radius: 16px;
+  background: var(--admin-surface-muted);
+  border: 1px solid var(--admin-border-soft);
+}
+
+.admin-list-item p,
+.admin-booking-card p,
+.admin-payment-card p,
+.admin-detail-grid p,
+.admin-payment-stats p {
+  margin: 0.18rem 0 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-list-meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.2rem;
+  text-align: right;
+}
+
+.admin-record-list {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.admin-record-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.2fr) minmax(0, 2fr);
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 1.05rem;
+  border-radius: 18px;
+  border: 1px solid var(--admin-border-soft);
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--admin-surface-strong) 92%, transparent), color-mix(in srgb, var(--admin-surface-muted) 96%, transparent)),
+    radial-gradient(circle at 100% 0, var(--admin-accent-glow), transparent 35%);
+  box-shadow: 0 12px 24px rgba(16, 39, 31, 0.05);
+  text-decoration: none;
+  color: inherit;
+}
+
+.admin-screen[data-theme="dark"] .admin-record-row {
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.18);
+}
+
+.admin-record-main strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--admin-text);
+}
+
+.admin-record-main p {
+  margin: 0.22rem 0 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-record-meta {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.admin-record-meta.compact {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+}
+
+.admin-record-meta > div {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.admin-record-meta > div span {
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--admin-text-muted);
+}
+
+.admin-record-meta > div strong {
+  color: var(--admin-text);
+}
+
+.admin-record-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: flex-end;
+}
+
+.admin-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.9rem;
+  border-radius: 20px;
+  background: var(--admin-surface-elevated);
+  border: 1px solid var(--admin-border-soft);
+  backdrop-filter: blur(10px);
+}
+
+.admin-dashboard-filter-bar {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(180px, 0.7fr) minmax(180px, 0.7fr) minmax(220px, 1fr);
+  gap: 0.8rem;
+  align-items: end;
+}
+
+.admin-dashboard-filter-field {
+  display: grid;
+  gap: 0.42rem;
+  min-width: 0;
+}
+
+.admin-dashboard-filter-field span {
+  color: var(--admin-text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.admin-dashboard-filter-copy {
+  display: grid;
+  gap: 0.18rem;
+  min-height: 46px;
+  align-content: center;
+  padding: 0.75rem 0.95rem;
+  border-radius: 16px;
+  background: var(--admin-surface-soft);
+  border: 1px solid var(--admin-border-soft);
+}
+
+.admin-dashboard-filter-copy strong {
+  color: var(--admin-text);
+}
+
+.admin-dashboard-filter-copy span {
+  color: var(--admin-text-muted);
+  font-size: 0.86rem;
+}
+
+.admin-filter-bar input,
+.admin-filter-bar select,
+.admin-auth-form input,
+.admin-auth-form select,
+.admin-note-form textarea,
+.admin-ops-grid select {
+  min-width: 170px;
+  background: var(--admin-surface-strong);
+  border: 1px solid var(--admin-border-strong);
+  color: var(--admin-text);
+}
+
+.admin-table {
+  display: grid;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--admin-border);
+  background: var(--admin-surface-strong);
+  box-shadow: var(--admin-shadow);
+}
+
+.admin-table-row {
+  display: grid;
+  grid-template-columns: 1.5fr 1.2fr 0.8fr 0.8fr 0.8fr 0.9fr;
+  gap: 0.8rem;
+  padding: 0.95rem 1rem;
+  align-items: center;
+  border-top: 1px solid var(--admin-border-soft);
+}
+
+.admin-table-row span {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.admin-table-row small {
+  color: var(--admin-text-muted);
+}
+
+.admin-table-head {
+  background: var(--admin-surface-soft);
+  border-top: 0;
+  font-weight: 700;
+}
+
+.admin-pill {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  background: var(--admin-surface-soft);
+  color: var(--admin-text);
+}
+
+.admin-pill.confirmed,
+.admin-pill.paid {
+  background: rgba(47, 108, 79, 0.15);
+  color: var(--admin-accent);
+}
+
+.admin-pill.failed,
+.admin-pill.open,
+.admin-pill.issue {
+  background: var(--admin-danger);
+  color: var(--color-danger);
+}
+
+.admin-pill.invoice_waiting {
+  background: var(--admin-warning);
+  color: #8e5a1f;
+}
+
+.admin-screen[data-theme="dark"] .admin-pill.invoice_waiting {
+  color: #f0b56f;
+}
+
+.admin-pill.channel_managed {
+  background: rgba(74, 129, 128, 0.16);
+  color: var(--admin-chart-3);
+}
+
+.admin-pill.subtle {
+  background: var(--admin-surface-soft);
+  color: var(--admin-text-muted);
+}
+
+.admin-booking-card,
+.admin-payment-card {
+  padding: 1rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.admin-booking-card-top,
+.admin-payment-stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.admin-booking-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem 1rem;
+  color: var(--admin-text-muted);
+}
+
+.admin-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.admin-detail-grid.compact {
+  margin-top: 0.9rem;
+}
+
+.admin-detail-grid strong,
+.admin-payment-stats strong {
+  color: var(--admin-text);
+}
+
+.admin-ops-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.admin-ops-grid label,
+.admin-note-form {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.admin-note-item {
+  padding: 0.85rem 0.95rem;
+  border-radius: 16px;
+  background: var(--admin-surface-muted);
+  border: 1px solid var(--admin-border-soft);
+}
+
+.admin-note-item span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--admin-text-muted);
+}
+
+.admin-note-item p {
+  margin: 0.55rem 0 0;
+  line-height: 1.5;
+}
+
+.admin-raw-box {
+  margin: 0;
+  padding: 0.9rem;
+  border-radius: 16px;
+  background: var(--admin-surface-muted);
+  border: 1px solid var(--admin-border-soft);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  font-family: var(--font-body);
+  color: var(--admin-text);
+}
+
+.admin-sync-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.admin-sync-grid > div {
+  padding: 0.85rem 0.9rem;
+  border-radius: 16px;
+  background: var(--admin-surface-muted);
+  border: 1px solid var(--admin-border-soft);
+}
+
+.admin-sync-grid p {
+  margin: 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-sync-grid strong {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--admin-text);
+}
+
+.admin-calendar-board {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-calendar-intro {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.admin-calendar-intro.compact {
+  padding: 0.9rem 1rem;
+  gap: 0.85rem;
+}
+
+.admin-calendar-intro-copy {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.admin-calendar-intro.compact .admin-calendar-intro-copy {
+  gap: 0.7rem;
+}
+
+.admin-calendar-intro h2 {
+  margin: 0;
+  color: var(--admin-text);
+}
+
+.admin-calendar-intro.compact h2 {
+  font-size: 1.35rem;
+  line-height: 1.05;
+}
+
+.admin-calendar-intro p {
+  margin: 0.3rem 0 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-calendar-intro.compact p {
+  margin-top: 0.18rem;
+  font-size: 0.92rem;
+}
+
+.admin-calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.admin-calendar-top-meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.8rem;
+}
+
+.admin-calendar-toolbar-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.admin-calendar-toolbar-meta {
+  display: grid;
+  justify-items: end;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.admin-calendar-header-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.45rem 0.9rem;
+  border-radius: 999px;
+  background: var(--admin-surface-soft);
+  border: 1px solid var(--admin-border-soft);
+  color: var(--admin-text);
+  font-weight: 700;
+}
+
+.admin-calendar-page-header .admin-calendar-header-badge {
+  min-height: 36px;
+  padding: 0.35rem 0.78rem;
+  font-size: 0.92rem;
+}
+
+.admin-calendar-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.admin-calendar-stat-card {
+  min-width: 140px;
+  padding: 0.85rem 0.95rem;
+  border-radius: 18px;
+  background: var(--admin-surface-soft);
+  border: 1px solid var(--admin-border-soft);
+}
+
+.admin-calendar-stat-card span {
+  display: block;
+  color: var(--admin-text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.admin-calendar-stat-card strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--admin-text);
+  font-size: 1.5rem;
+}
+
+.admin-calendar-house-legend {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem;
+}
+
+.admin-calendar-house-chip {
+  appearance: none;
+  border: 1px solid color-mix(in srgb, var(--unit-accent) 28%, transparent);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 34px;
+  padding: 0.32rem 0.72rem;
+  border-radius: 999px;
+  background: var(--unit-soft);
+  color: var(--admin-text);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 160ms ease, border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.admin-calendar-house-chip:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--unit-accent) 44%, transparent);
+}
+
+.admin-calendar-house-chip.active {
+  background: color-mix(in srgb, var(--unit-soft) 70%, var(--unit-accent));
+  border-color: color-mix(in srgb, var(--unit-accent) 64%, transparent);
+  box-shadow: 0 10px 18px color-mix(in srgb, var(--unit-accent) 16%, transparent);
+}
+
+.admin-calendar-house-chip svg {
+  width: 14px;
+  height: 14px;
+  color: var(--unit-accent);
+}
+
+.admin-calendar-house-chip.active svg {
+  color: currentColor;
+}
+
+.admin-calendar-filter-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.admin-calendar-filter-group {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.admin-calendar-filter-label,
+.admin-calendar-filter-field span {
+  color: var(--admin-text-muted);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+
+.admin-calendar-filter-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.1fr) minmax(220px, 0.9fr) minmax(240px, 1fr);
+  gap: 0.8rem;
+  align-items: end;
+}
+
+.admin-calendar-filter-field {
+  display: grid;
+  gap: 0.42rem;
+  min-width: 0;
+}
+
+.admin-calendar-filter-field select,
+.admin-calendar-filter-field input[type="date"],
+.admin-calendar-toolbar input[type="month"] {
+  background: var(--admin-surface-strong);
+  border: 1px solid var(--admin-border-strong);
+  color: var(--admin-text);
+  min-height: 46px;
+  border-radius: 16px;
+  padding: 0.75rem 0.9rem;
+  color-scheme: dark;
+}
+
+.admin-screen:not([data-theme="dark"]) .admin-calendar-filter-field select,
+.admin-screen:not([data-theme="dark"]) .admin-calendar-filter-field input[type="date"],
+.admin-screen:not([data-theme="dark"]) .admin-calendar-toolbar input[type="month"] {
+  color-scheme: light;
+}
+
+.admin-calendar-range-tabs {
+  display: inline-grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.35rem;
+  padding: 0.32rem;
+  border-radius: 18px;
+  background: var(--admin-surface-soft);
+  border: 1px solid var(--admin-border-soft);
+}
+
+.admin-calendar-range-tab {
+  appearance: none;
+  min-height: 40px;
+  padding: 0.55rem 0.9rem;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--admin-text-muted);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.admin-calendar-range-tab:hover {
+  transform: translateY(-1px);
+}
+
+.admin-calendar-range-tab.active {
+  background: linear-gradient(135deg, color-mix(in srgb, var(--admin-accent) 82%, white), var(--admin-accent));
+  color: white;
+  box-shadow: 0 12px 22px color-mix(in srgb, var(--admin-accent) 24%, transparent);
+}
+
+.admin-screen[data-theme="dark"] .admin-calendar-range-tab.active {
+  color: #08110f;
+}
+
+.admin-calendar-unit {
+  padding: 1rem 1.05rem;
+}
+
+.admin-calendar-unit-upgraded {
+  display: grid;
+  gap: 0.95rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.admin-calendar-unit-upgraded::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--unit-accent);
+}
+
+.admin-calendar-unit-upgraded::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto auto;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, var(--unit-glow), transparent 72%);
+  pointer-events: none;
+}
+
+.admin-calendar-unit-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.admin-calendar-unit-header p {
+  margin: 0.25rem 0 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-calendar-unit-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.admin-calendar-unit-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--unit-soft);
+  border: 1px solid color-mix(in srgb, var(--unit-accent) 28%, transparent);
+  color: var(--unit-accent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.admin-calendar-unit-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.admin-calendar-unit-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: var(--admin-surface-soft);
+  color: var(--admin-accent);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.admin-calendar-unit-pill.subtle {
+  background: var(--admin-surface-muted);
+  color: var(--admin-text-muted);
+}
+
+.admin-calendar-unit-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-calendar-shell {
+  display: grid;
+  gap: 0.8rem;
+  overflow-x: auto;
+  padding-bottom: 0.2rem;
+}
+
+.admin-calendar-days-sticky {
+  display: grid;
+  grid-template-columns: 260px minmax(980px, 1fr);
+  gap: 0.85rem;
+  align-items: end;
+}
+
+.admin-calendar-booking-summary-label {
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1rem;
+  border-radius: 18px;
+  background: var(--admin-surface-soft);
+  border: 1px solid var(--admin-border-soft);
+  color: var(--admin-text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.admin-calendar-axis,
+.admin-calendar-strip {
+  --calendar-days: 31;
+  display: grid;
+  grid-template-columns: repeat(var(--calendar-days), minmax(0, 1fr));
+  gap: 0.32rem;
+}
+
+.admin-calendar-axis {
+  color: var(--admin-text-muted);
+  font-size: 0.76rem;
+}
+
+.admin-calendar-axis span {
+  display: grid;
+  place-items: center;
+  min-height: 48px;
+  gap: 0.12rem;
+  border-radius: 12px;
+  background: var(--admin-surface-soft);
+  border: 1px solid var(--admin-border-soft);
+  font-weight: 700;
+}
+
+.admin-calendar-axis span small {
+  font-size: 0.64rem;
+  color: var(--admin-text-muted);
+  text-transform: uppercase;
+}
+
+.admin-calendar-axis span.weekend {
+  background: color-mix(in srgb, var(--admin-surface-soft) 72%, var(--admin-chart-2));
+}
+
+.admin-calendar-axis span.today {
+  background: color-mix(in srgb, var(--admin-accent-soft) 68%, var(--admin-surface-soft));
+  border-color: color-mix(in srgb, var(--admin-accent) 55%, transparent);
+  color: var(--admin-accent);
+}
+
+.admin-calendar-lanes {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.admin-calendar-lanes.upgraded {
+  margin-top: 0;
+  min-width: 1240px;
+}
+
+.admin-calendar-lane {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.admin-calendar-lane.upgraded {
+  grid-template-columns: 260px minmax(980px, 1fr);
+  gap: 0.85rem;
+  align-items: center;
+}
+
+.admin-calendar-lane-meta {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.admin-calendar-lane-meta span {
+  color: var(--admin-text-muted);
+  font-size: 0.85rem;
+}
+
+.admin-calendar-strip {
+  position: relative;
+  padding: 0.2rem 0;
+}
+
+.admin-calendar-cell {
+  min-height: 48px;
+  border-radius: 16px;
+  background: var(--admin-surface-muted);
+  border: 1px solid var(--admin-border-soft);
+}
+
+.admin-calendar-cell.weekend {
+  background: color-mix(in srgb, var(--admin-surface-muted) 86%, var(--admin-chart-2));
+}
+
+.admin-calendar-cell.today {
+  border-color: color-mix(in srgb, var(--admin-accent) 55%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--admin-accent) 28%, transparent);
+}
+
+.admin-calendar-bar {
+  min-height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.85rem;
+  border-radius: 14px;
+  text-decoration: none;
+  color: white;
+  background: linear-gradient(90deg, var(--admin-chart-1), color-mix(in srgb, var(--admin-chart-1) 75%, white));
+  box-shadow: 0 8px 18px rgba(16, 39, 31, 0.18);
+  z-index: 1;
+}
+
+.admin-screen[data-theme="dark"] .admin-calendar-bar {
+  color: #08110f;
+}
+
+.admin-calendar-bar strong,
+.admin-calendar-bar span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.admin-calendar-bar strong {
+  font-size: 0.88rem;
+}
+
+.admin-calendar-bar span {
+  font-size: 0.74rem;
+  opacity: 0.84;
+}
+
+.admin-calendar-bar.open {
+  background: linear-gradient(90deg, var(--admin-chart-4), #b35f48);
+  color: white;
+}
+
+.admin-calendar-bar.invoice_waiting {
+  background: linear-gradient(90deg, var(--admin-chart-5), var(--admin-chart-2));
+  color: #22180d;
+}
+
+.admin-calendar-bar.channel_managed {
+  background: linear-gradient(90deg, var(--admin-chart-3), #7bc5c4);
+  color: #08110f;
+}
+
+.admin-calendar-booking-summary {
+  min-height: 72px;
+  display: grid;
+  gap: 0.55rem;
+  align-content: center;
+  padding: 0.95rem 1rem;
+  border-radius: 18px;
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--admin-surface-strong) 90%, transparent), color-mix(in srgb, var(--admin-surface-muted) 98%, transparent)),
+    radial-gradient(circle at 100% 0, var(--admin-accent-glow), transparent 35%);
+  border: 1px solid var(--admin-border-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--unit-accent) 10%, transparent);
+}
+
+.admin-calendar-booking-summary strong {
+  color: var(--admin-text);
+}
+
+.admin-calendar-booking-summary p {
+  margin: 0.2rem 0 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-calendar-booking-summary-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.admin-calendar-booking-summary-meta > span:not(.admin-pill) {
+  color: var(--admin-text-muted);
+  font-size: 0.84rem;
+}
+
+.admin-payment-stats {
+  align-items: stretch;
+}
+
+.admin-payment-stats > div {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.admin-analytics-card {
+  min-height: 100%;
+}
+
+.admin-chart-card {
+  position: relative;
+}
+
+.admin-chart-insight {
+  display: grid;
+  gap: 0.22rem;
+  margin: -0.15rem 0 0.95rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: 16px;
+  background: var(--admin-surface-muted);
+  border: 1px solid var(--admin-border-soft);
+}
+
+.admin-chart-insight strong {
+  color: var(--admin-text);
+  font-size: 0.92rem;
+}
+
+.admin-chart-insight span {
+  color: var(--admin-text-muted);
+  font-size: 0.84rem;
+  line-height: 1.35;
+}
+
+.admin-chart-tooltip {
+  position: fixed;
+  z-index: 1200;
+  display: grid;
+  gap: 0.18rem;
+  min-width: 180px;
+  max-width: 280px;
+  padding: 0.7rem 0.82rem;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--admin-surface-strong) 96%, black);
+  border: 1px solid color-mix(in srgb, var(--admin-accent) 28%, var(--admin-border));
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.26);
+  pointer-events: none;
+  backdrop-filter: blur(16px);
+}
+
+.admin-chart-tooltip strong {
+  color: var(--admin-text);
+  font-size: 0.86rem;
+}
+
+.admin-chart-tooltip span {
+  color: var(--admin-text-muted);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.admin-donut-layout {
+  display: grid;
+  grid-template-columns: minmax(190px, 220px) minmax(0, 1fr);
+  gap: 1.15rem;
+  align-items: center;
+}
+
+.admin-donut-wrap {
+  position: relative;
+  width: 172px;
+  height: 172px;
+  margin: 0 auto;
+}
+
+.admin-donut-chart {
+  width: 172px;
+  height: 172px;
+}
+
+.admin-donut-center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+}
+
+.admin-donut-center strong {
+  font-size: 2rem;
+  color: var(--admin-text);
+}
+
+.admin-donut-center span {
+  color: var(--admin-text-muted);
+  font-size: 0.88rem;
+}
+
+.admin-chart-legend {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.admin-chart-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.72rem 0.82rem;
+  border-radius: 16px;
+  background: var(--admin-surface-muted);
+  border: 1px solid var(--admin-border-soft);
+  cursor: default;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.admin-chart-legend-item:hover,
+.admin-bars-column:hover,
+.admin-horizontal-row:hover,
+.admin-channel-row:hover {
+  transform: translateY(-1px);
+  border-color: color-mix(in srgb, var(--admin-accent) 28%, transparent);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.admin-chart-legend-item strong,
+.admin-horizontal-label strong,
+.admin-channel-copy strong {
+  color: var(--admin-text);
+}
+
+.admin-chart-legend-item p,
+.admin-horizontal-label p,
+.admin-horizontal-meta span,
+.admin-channel-value {
+  margin: 0.16rem 0 0;
+  color: var(--admin-text-muted);
+}
+
+.admin-chart-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  flex: 0 0 auto;
+}
+
+.admin-bars-peak {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.24rem 0.62rem;
+  border-radius: 999px;
+  background: var(--admin-accent-soft);
+  color: var(--admin-accent);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.admin-bars-layout {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: stretch;
+}
+
+.admin-bars-scale {
+  display: grid;
+  align-content: stretch;
+  justify-items: end;
+  gap: 0;
+  min-height: 260px;
+  padding: 0.4rem 0 1.65rem;
+  color: var(--admin-text-muted);
+  font-size: 0.76rem;
+}
+
+.admin-bars-scale span {
+  display: flex;
+  align-items: flex-start;
+}
+
+.admin-bars-chart {
+  --bar-columns: 12;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--bar-columns), minmax(0, 1fr));
+  gap: 0.7rem;
+  align-items: end;
+  min-height: 260px;
+  padding: 0.4rem 0 0;
+}
+
+.admin-bars-chart::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 1.65rem;
+  border-radius: 18px;
+  background:
+    linear-gradient(to top, var(--admin-border-soft) 1px, transparent 1px) 0 100%/100% 33.333%,
+    linear-gradient(to top, var(--admin-border-soft) 1px, transparent 1px) 0 50%/100% 33.333%,
+    linear-gradient(to top, var(--admin-border-soft) 1px, transparent 1px) 0 0/100% 33.333%;
+  pointer-events: none;
+}
+
+.admin-bars-column {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto minmax(190px, 1fr) auto;
+  gap: 0.55rem;
+  min-width: 0;
+  border-radius: 16px;
+  transition: transform 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+  cursor: pointer;
+}
+
+.admin-bars-column:hover {
+  background: color-mix(in srgb, var(--admin-surface-soft) 86%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--admin-accent) 18%, transparent);
+}
+
+.admin-bars-value {
+  min-height: 20px;
+  text-align: center;
+  font-size: 0.8rem;
+  color: transparent;
+  font-weight: 700;
+}
+
+.admin-bars-value.visible {
+  color: var(--admin-text);
+}
+
+.admin-bars-track {
+  display: flex;
+  align-items: end;
+  min-height: 190px;
+  padding: 0 0.18rem;
+}
+
+.admin-bars-bar {
+  width: 100%;
+  height: var(--bar-height);
+  min-height: 6px;
+  border-radius: 14px 14px 10px 10px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--admin-chart-3) 65%, white), var(--admin-chart-3));
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.admin-bars-bar.peak {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--admin-chart-2) 68%, white), var(--admin-chart-2));
+  box-shadow: 0 14px 28px color-mix(in srgb, var(--admin-chart-2) 26%, transparent);
+}
+
+.admin-bars-column:hover .admin-bars-bar {
+  transform: scaleY(1.02);
+}
+
+.admin-bars-label {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--admin-text-muted);
+  font-weight: 600;
+}
+
+.admin-horizontal-bars,
+.admin-channel-list {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.admin-horizontal-row,
+.admin-channel-row {
+  display: grid;
+  gap: 0.85rem;
+  align-items: center;
+  padding: 0.8rem 0.85rem;
+  border-radius: 16px;
+  background: var(--admin-surface-muted);
+  border: 1px solid var(--admin-border-soft);
+  cursor: pointer;
+}
+
+.admin-horizontal-row {
+  grid-template-columns: minmax(190px, 1.2fr) minmax(150px, 1.8fr) minmax(96px, auto);
+}
+
+.admin-horizontal-track,
+.admin-channel-track {
+  width: 100%;
+  min-height: 12px;
+  border-radius: 999px;
+  background: var(--admin-chart-track);
+  overflow: hidden;
+}
+
+.admin-horizontal-fill,
+.admin-channel-fill {
+  width: var(--fill-width);
+  height: 100%;
+  min-height: 12px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--fill-color) 84%, white), var(--fill-color));
+}
+
+.admin-horizontal-meta {
+  display: grid;
+  justify-items: end;
+  text-align: right;
+  gap: 0.2rem;
+}
+
+.admin-horizontal-meta strong {
+  color: var(--admin-text);
+}
+
+.admin-channel-row {
+  grid-template-columns: minmax(140px, 1.2fr) minmax(120px, 1.8fr) auto;
+}
+
+.admin-channel-copy {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.admin-channel-value {
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.muted {
+  color: var(--admin-text-muted);
+}
+
+.error-banner {
+  margin: 0;
+}
+
+@media (max-width: 1240px) {
+  .admin-kpi-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .admin-analytics-grid.primary,
+  .admin-analytics-grid.secondary,
+  .admin-sync-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-dashboard-filter-bar {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-calendar-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-calendar-header-overview {
+    min-width: min(100%, 640px);
+  }
+}
+
+@media (max-width: 1120px) {
+  .admin-grid.two-up,
+  .admin-grid.detail-top,
+  .admin-grid.detail-columns,
+  .admin-analytics-grid.primary,
+  .admin-analytics-grid.secondary,
+  .admin-sync-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-dashboard-filter-bar {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-donut-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 920px) {
+  .admin-screen {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    position: static;
+    min-height: auto;
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .admin-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-page-header,
+  .admin-booking-card-top,
+  .admin-payment-stats,
+  .admin-list-item,
+  .admin-calendar-unit-header,
+  .admin-calendar-lane-meta,
+  .admin-auth-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-record-row,
+  .admin-horizontal-row,
+  .admin-channel-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-record-meta,
+  .admin-record-meta.compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-calendar-intro,
+  .admin-calendar-unit-metrics {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-calendar-top-meta {
+    justify-items: start;
+  }
+
+  .admin-calendar-toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-calendar-toolbar-meta {
+    justify-items: start;
+  }
+
+  .admin-calendar-house-legend {
+    justify-content: flex-start;
+  }
+
+  .admin-calendar-header-overview {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .admin-calendar-range-tabs {
+    width: 100%;
+  }
+
+  .admin-calendar-days-sticky,
+  .admin-calendar-lane.upgraded {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-calendar-lanes.upgraded {
+    min-width: 940px;
+  }
+
+  .admin-table-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-detail-grid,
+  .admin-ops-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-bars-chart {
+    overflow-x: auto;
+    padding-bottom: 0.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-main {
+    padding: 1rem;
+  }
+
+  .admin-kpi-grid,
+  .admin-sync-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-filter-bar {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .admin-inline-actions {
+    width: 100%;
+  }
+
+  .admin-inline-actions input[type="month"] {
+    width: 100%;
+  }
+
+  .admin-calendar-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-calendar-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-record-meta,
+  .admin-record-meta.compact,
+  .admin-table-row {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-bars-chart {
+    grid-template-columns: repeat(var(--bar-columns), minmax(44px, 1fr));
+  }
+}
