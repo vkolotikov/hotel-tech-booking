@@ -29,8 +29,19 @@ class DemoSeeder extends Seeder
             ['password_hash' => Hash::make('First-Design-Studio'), 'display_name' => 'Regular User']
         );
 
-        $units = config('content.units');
-        $unitIds = array_keys($units);
+        // Build unit list from config — use array_values to get a simple indexed array
+        $unitsMap = config('content.units', []);
+        $unitsList = array_values($unitsMap);
+
+        // Fallback if config is empty or missing
+        if (empty($unitsList)) {
+            $unitsList = [
+                ['id' => 'UNIT1', 'name' => 'Deluxe House',  'max_guests' => 6],
+                ['id' => 'UNIT2', 'name' => 'Lodge',         'max_guests' => 4],
+                ['id' => 'UNIT3', 'name' => 'Tiny House',    'max_guests' => 2],
+            ];
+        }
+
         $guests = [
             ['Janis Berzins', 'janis@inbox.lv', '+371 26 111 222', 'lv'],
             ['Anna Müller', 'anna.m@gmail.com', '+49 170 1234567', 'de'],
@@ -52,8 +63,10 @@ class DemoSeeder extends Seeder
         // Create 12 mirror bookings
         for ($i = 0; $i < 12; $i++) {
             $guest   = $guests[$i];
-            $unitKey = $unitIds[$i % count($unitIds)];
-            $unit    = $units[$unitKey];
+            $unit    = $unitsList[$i % count($unitsList)];
+            $unitId  = $unit['id'] ?? ($unit['slug'] ?? (string) $i);
+            $unitName = $unit['name'] ?? 'Unit ' . ($i + 1);
+            $maxGuests = $unit['max_guests'] ?? 4;
             $arrival = now()->addDays(rand(-10, 30))->format('Y-m-d');
             $nights  = rand(2, 5);
             $departure = date('Y-m-d', strtotime("{$arrival} +{$nights} days"));
@@ -67,15 +80,15 @@ class DemoSeeder extends Seeder
                 'booking_reference' => 'FG-' . strtoupper(substr(md5($resId), 0, 8)),
                 'booking_type'      => 'reservation',
                 'booking_state'     => $state,
-                'apartment_id'      => $unitKey,
-                'apartment_name'    => $unit['name'],
+                'apartment_id'      => (string) $unitId,
+                'apartment_name'    => $unitName,
                 'channel_id'        => (string) ($i + 100),
                 'channel_name'      => $channel,
                 'guest_name'        => $guest[0],
                 'guest_email'       => $guest[1],
                 'guest_phone'       => $guest[2],
                 'guest_language'    => $guest[3],
-                'adults'            => rand(1, $unit['max_guests']),
+                'adults'            => rand(1, $maxGuests),
                 'children'          => rand(0, 1),
                 'arrival_date'      => $arrival,
                 'departure_date'    => $departure,
@@ -91,7 +104,7 @@ class DemoSeeder extends Seeder
             BookingPriceElement::create([
                 'reservation_id' => $resId,
                 'element_type'   => 'accommodation',
-                'name'           => $unit['name'] . " ({$nights} nights)",
+                'name'           => $unitName . " ({$nights} nights)",
                 'amount'         => $price * 0.85,
                 'quantity'       => 1,
                 'tax'            => $price * 0.15,
@@ -127,6 +140,10 @@ class DemoSeeder extends Seeder
         // Booking submissions
         for ($i = 0; $i < 5; $i++) {
             $guest = $guests[$i];
+            $unit  = $unitsList[$i % count($unitsList)];
+            $unitId = $unit['id'] ?? ($unit['slug'] ?? (string) $i);
+            $unitName = $unit['name'] ?? 'Unit ' . ($i + 1);
+
             BookingSubmission::create([
                 'outcome'           => $i < 4 ? 'success' : 'failure',
                 'failure_code'      => $i >= 4 ? 'hold_expired' : null,
@@ -136,8 +153,8 @@ class DemoSeeder extends Seeder
                 'guest_name'        => $guest[0],
                 'guest_email'       => $guest[1],
                 'guest_phone'       => $guest[2],
-                'unit_id'           => $unitIds[$i % count($unitIds)],
-                'unit_name'         => $units[$unitIds[$i % count($unitIds)]]['name'],
+                'unit_id'           => (string) $unitId,
+                'unit_name'         => $unitName,
                 'check_in'          => now()->addDays(rand(1, 30))->format('Y-m-d'),
                 'check_out'         => now()->addDays(rand(31, 40))->format('Y-m-d'),
                 'adults'            => 2,
@@ -147,6 +164,6 @@ class DemoSeeder extends Seeder
             ]);
         }
 
-        $this->command->info('Seeded 1 admin user, 12 bookings, 5 submissions, 4 notes.');
+        $this->command->info('Seeded 2 admin users, 12 bookings, 5 submissions, 4 notes.');
     }
 }
