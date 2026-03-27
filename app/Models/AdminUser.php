@@ -12,7 +12,7 @@ class AdminUser extends Model
     {
         return [
             'last_login_at' => 'datetime',
-            'password_hash' => 'hashed:false',
+            'password_hash' => 'string',
         ];
     }
 
