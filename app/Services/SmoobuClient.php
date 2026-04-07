@@ -20,20 +20,50 @@ class SmoobuClient
         $this->timeout = (int) config('services.smoobu.timeout', 8);
     }
 
-    /** Get availability/rates for date range. */
+    /**
+     * Get per-day rates + availability for a date range.
+     *
+     * Smoobu's GET /api/rates returns a nested structure:
+     *   { "data": { "<apartmentId>": { "YYYY-MM-DD": { "price": 240,
+     *                                                  "min_length_of_stay": 2,
+     *                                                  "available": 1 }, ... } } }
+     *
+     * Note: the date range is INCLUSIVE on both ends in Smoobu's rates endpoint,
+     * but a stay is checkIn..checkOut-1 (you don't pay for departure night), so
+     * we query checkIn..(checkOut - 1 day).
+     */
     public function getRates(string $checkIn, string $checkOut, array $unitIds = []): array
     {
         if ($this->isMock) {
             return $this->mockRates($checkIn, $checkOut, $unitIds);
         }
 
-        $response = $this->get('/rates', [
-            'start_date'   => $checkIn,
-            'end_date'     => $checkOut,
-            'apartments'   => $unitIds,
-        ]);
+        // Smoobu's "end_date" on /api/rates is inclusive — last *night* of the stay.
+        $lastNight = date('Y-m-d', strtotime($checkOut . ' -1 day'));
 
-        return $response;
+        $params = [
+            'start_date' => $checkIn,
+            'end_date'   => $lastNight,
+        ];
+        if (!empty($unitIds)) {
+            // Smoobu expects apartments[]=...&apartments[]=...
+            $params['apartments'] = array_values($unitIds);
+        }
+
+        return $this->get('/rates', $params);
+    }
+
+    /**
+     * List all apartments configured on the Smoobu account.
+     * Used to validate / sync the unit IDs in config/content.php.
+     */
+    public function listApartments(): array
+    {
+        if ($this->isMock) {
+            return ['apartments' => []];
+        }
+
+        return $this->get('/apartments');
     }
 
     /** Create a reservation on Smoobu. */
